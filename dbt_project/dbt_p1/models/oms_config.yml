@@ -1,0 +1,36 @@
+models:
+  - name: customer_stg
+    description: "customer stg"
+    columns:
+      - name: Email
+        description: "The primary key for this table"
+        tests:
+          - string_not_empty
+          
+
+  - name: employees_stg
+    description: "employees stg"
+    columns:
+      - name: jobtitle
+        description: "The primary key for this table"
+        data_tests:
+          - string_not_empty
+
+  - name: orders_stg
+    description: "employees stg"
+    columns:
+      - name: statuscd
+        description: "{{ doc('StatusCD')}}"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['01','02','03']
+          - relationships:
+              arguments:
+                to: ref('orders_fact')
+                field: statuscd
+
+          
+
+
+    

@@ -1,0 +1,44 @@
+
+version: 2
+
+
+sources:
+  - name: metadata
+    database: SLEEKMART_OMS
+    schema: "{{ var('l1_schema') }}"
+    
+
+    #"{{ get_source_schema('l1') }} cannot use macro in the yaml"
+    ##bash
+    #dbt run && dbt test
+    #it has to pass the test first to run  
+    tables:
+      - name: cust
+        identifier: customers
+        loaded_at_field: Updated_at
+        freshness:
+          warn_after: {count: 1, period: hour}
+          error_after: {count: 365, period: day}
+        
+
+      - name: ordr
+        identifier: orders
+
+      - name: ordritms
+        identifier: orderitems
+
+      - name: employees
+
+      - name: stores
+
+      - name: suppliers
+
+      - name: products
+
+      
+
+      
+
+
+
+

@@ -1,0 +1,26 @@
+
+version: 2
+
+
+sources:
+  - name: metadata
+    database: SLEEKMART_OMS
+    schema: "{{ var('l1_schema') }}"
+    #"{{ get_source_schema('l1') }}"  
+    tables:
+      - name: customers
+      - name: orders
+      - name: orderitems
+
+
+
+models:
+  - name: customerrevenue
+    description: "customer orders"
+    columns:
+      - name: customerid
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+

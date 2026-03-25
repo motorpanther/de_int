@@ -1,0 +1,47 @@
+#if no virtual env is created, create the virtual env in the dir
+python -m venv <venv_name>
+
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+& "D:\DE VMs\DE\dbt_1\deb_venv\Scripts\Activate.ps1"
+
+#to quit
+deactivate
+
+
+#default goes to c drive
+#it makes it to make the project at d drive
+#temp solution
+$env:DBT_PROFILES_DIR = "D:\DE VMs\DE"
+
+
+
+#source are not supported in the version 1 schema.yml
+
+
+#dbt command 
+#with folder
+dbt run --target int --select state:modified+ models/stg/ --state target/ --defer --favor-state 
+
+#with no folder
+dbt run --target L1 --select state:modified+ --state previous_state/ --defer --favor-state
+
+#dbt command
+DBT_ENV=prd dbt run --target int
+
+#connection from int profile
+#but resolves sources as if in prod (my-gcp-prd-project.raw_prd)
+
+#(no comments using -- outside Jinja macros):
+ --   {% set project = 'my-gcp-' ~ env ~ '-project' %}
+
+
+
+dbt list --resource-type macro | Select-String get_source_schema
+
+
+
+#bash
+dbt run && dbt test
+#it has to pass the test first to run

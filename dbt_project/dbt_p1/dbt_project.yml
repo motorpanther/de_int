@@ -1,0 +1,68 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_p1'
+version: '1.10.13'
+config-version: 2
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_p1'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+
+macro-paths: ["macros"]
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  #+transient: false 
+  #for snowflake that want to create a permanent table rather than a transient table (note: more cost for permanent table but 7 days recoverable)
+  dbt_p1:
+    # Config indicated by + and applies to all files under models/example/
+    test:
+      materialized: table
+    example:
+      +materialized: view
+      #default materilization if not defined
+    customerkpi:
+      +materialized: view
+      #default materilization if not defined
+      #customerrevenue:
+        #schema: L3_CONSUMPTION
+    stg:
+      +schema: L2_PROCESSING
+      customer_stg:
+        materilized: view
+      orders_stg:
+        materilized: view
+
+seeds:
+  dbt_p1:
+    orders:
+      column_types:
+        OrderID: integer
+        CustomerID: integer
+        PersonID: integer
+        ProductID: integer
+        Quantity: integer
+        Discount: text
+
+
+vars:
+  l1_schema: "l1_landing"

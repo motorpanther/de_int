@@ -1,0 +1,25 @@
+dbt_p1:
+  outputs:
+    L1:
+      type: snowflake
+      account: zxxqmot-no92965
+      user: motorpanther
+      password: XXX
+      role: ACCOUNTADMIN
+      database: SLEEKMART_OMS
+      warehouse: COMPUTE_WH
+      schema: L3_CONSUMPTION
+      threads: 1
+
+    L3:
+      type: snowflake
+      account: zxxqmot-no92965
+      user: motorpanther
+      password: XXX
+      role: ACCOUNTADMIN
+      database: SLEEKMART_OMS
+      warehouse: COMPUTE_WH
+      schema: L3_CONSUMPTION
+      threads: 1
+
+  target: L1

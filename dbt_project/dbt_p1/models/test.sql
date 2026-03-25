@@ -1,0 +1,1 @@
+select '{{ get_source_schema('l1') }}' as col1, '{{ generate_schema_name(custom_schema_name, node) }}' as col2
